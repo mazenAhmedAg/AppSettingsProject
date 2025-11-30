@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belal Soft - Medical System Config</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=48">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Landing Section -->
+    <div class="landing-section" id="landingSection">
+        <div class="landing-content">
+            <div class="logo-box">
+                <img src="css/fainal_logo.png" alt="Logo" class="landing-logo">
+            </div>
+            <h1 class="landing-title">
+                <span class="highlight">BELAL SOFT</span> <span class="gradient-title">MEDICAL SYSTEM</span>
+            </h1>
+            <p class="landing-subtitle">توليد ملفات الإعدادات بأحدث التقنيات</p>
+            <button class="start-btn" id="startBtn" type="button">
+                <span class="btn-text">ابدأ الآن</span>
+                <span class="btn-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </button>
+        </div>
+        <canvas id="landingCanvas"></canvas>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="inner one"></div>
+            <div class="inner two"></div>
+            <div class="inner three"></div>
+        </div>
+        <div class="loading-text">جاري تحميل النظام...</div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="main-container" id="mainApp" style="display: none;">
+        <!-- Left Panel (FORM) -->
+        <div class="left-panel">
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h1 class="crazy-title">إعداد <span class="gradient-text">النظام</span></h1>
+                    <p>أدخل البيانات المطلوبة لتوليد الملف</p>
+                </div>
+
+                <form id="configForm">
+                    <!-- Server IP Input -->
+                    <div class="input-group">
+                        <label>عنوان IP للنظام</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="serverIP" placeholder="مثال: 192.168.1.100" dir="ltr">
+                            <span class="status-icon"></span>
+                        </div>
+                    </div>
+
+                    <!-- Database Connection Selector -->
+                    <div class="input-group">
+                        <label>Connection String (اختر للتعديل)</label>
+                        <div class="input-wrapper">
+                            <select id="connectionSelector" class="form-select">
+                                <option value="" disabled selected>اختر الاتصال لتعديل الـ Catalog...</option>
+                                <option value="DefaultConnection">DefaultConnection</option>
+                                <option value="WhatsappQueueConnection">WhatsappQueueConnection</option>
+                                <option value="PharmacyConnection">PharmacyConnection</option>
+                                <option value="WaseelConnection">WaseelConnection</option>
+                                <option value="MedicalNetConnection">MedicalNetConnection</option>
+                                <option value="AccountsConnection">AccountsConnection</option>
+                                <option value="NaphisConnection">NaphisConnection</option>
+                            </select>
+                            <span class="status-icon"></span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Database Name Input -->
+                    <div class="input-group" id="dbNameContainer" style="display: none;">
+                        <label>Initial Catalog (اسم القاعدة الجديد)</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="dbNameInput" placeholder="اتركه فارغاً لاستخدام الافتراضי">
+                            <span class="status-icon"></span>
+                        </div>
+                    </div>
+
+                    <div class="divider">
+                        <span>بيانات Waseel</span>
+                    </div>
+
+                    <!-- Waseel Username -->
+                    <div class="input-group">
+                        <label>اسم المستخدم</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="waseelUser" placeholder="Username">
+                            <span class="status-icon"></span>
+                        </div>
+                    </div>
+
+                    <!-- Waseel Password -->
+                    <div class="input-group">
+                        <label>كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="waseelPassword" placeholder="Password">
+                            <span class="status-icon"></span>
+                        </div>
+                    </div>
+
+                    <!-- Provider ID -->
+                    <div class="input-group">
+                        <label>معرف المزود (Provider ID)</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="providerId" placeholder="مثال: 363443">
+                            <span class="status-icon"></span>
+                        </div>
+                    </div>
+
+                    <div class="divider">
+                        <span>إعدادات الزكاة (Zatca API)</span>
+                    </div>
+
+                    <!-- Zatca Mode Selector -->
+                    <div class="zatca-mode-selector">
+                        <label class="mode-label">اختر وضع الزكاة:</label>
+                        <div class="mode-options">
+                            <label class="mode-option">
+                                <input type="radio" name="zatcaMode" value="Production" checked>
+                                <span class="mode-box">
+                                    <span class="mode-icon">🚀</span>
+                                    <span class="mode-text">Production</span>
+                                </span>
+                            </label>
+                            
+                            <label class="mode-option">
+                                <input type="radio" name="zatcaMode" value="Test">
+                                <span class="mode-box">
+                                    <span class="mode-icon">🧪</span>
+                                    <span class="mode-text">Test</span>
+                                </span>
+                            </label>
+                            
+                            <label class="mode-option">
+                                <input type="radio" name="zatcaMode" value="None">
+                                <span class="mode-box">
+                                    <span class="mode-icon">❌</span>
+                                    <span class="mode-text">None</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-cloud-download-alt"></i>
+                            <span>حفظ وتنزيل</span>
+                        </button>
+                        
+                        <button type="button" class="btn-secondary" id="resetBtn">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>مسح</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Panel (VISUAL) -->
+        <div class="right-panel">
+            <div class="visual-content">
+                <div class="brand-overlay">
+                    <img src="css/fainal_logo.png" alt="Belal Soft" class="brand-logo">
+                    <h2>BELAL SOFT</h2>
+                </div>
+                <canvas id="techCanvas"></canvas>
+                <div class="visual-text">
+                    <h3>Medical System Configuration</h3>
+                    <p>توليد ملفات الإعدادات بأحدث التقنيات</p>
+                </div>
+            </div>
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+        </div>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        // Inline script to ensure it works
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Ready - Inline Script');
+            
+            const startBtn = document.getElementById('startBtn');
+            console.log('Button found:', startBtn);
+            
+            if (startBtn) {
+                startBtn.onclick = function() {
+                    console.log('Button clicked!');
+                    
+                    const landing = document.getElementById('landingSection');
+                    const mainApp = document.getElementById('mainApp');
+                    
+                    if (landing && mainApp) {
+                        landing.classList.add('slide-up');
+                        mainApp.style.display = 'flex';
+                        
+                        // Initialize tech visual
+                        setTimeout(function() {
+                            initTechVisual();
+                        }, 500);
+                    }
+                };
+            }
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
